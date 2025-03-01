@@ -18,6 +18,7 @@ EDAMAM_APP_KEY = os.environ.get('EDAMAM_APP_KEY')
 SUPABASE_URL = os.environ.get('SUPABASE_URL')
 SUPABASE_KEY = os.environ.get('SUPABASE_KEY')
 PORT = int(os.environ.get('PORT', 5000))
+BASE_URL = os.environ.get('BASE_URL', f"https://flow-auto.onrender.com")
 EDAMAM_BASE_URL = "https://api.edamam.com"
 EDAMAM_PARSER_ENDPOINT = "/api/food-database/v2/parser"
 EDAMAM_NUTRIENTS_ENDPOINT = "/api/food-database/v2/nutrients"
@@ -324,6 +325,7 @@ def procesar_menu(job_id, data):
 
 last_entry_id = None  # Variable global para almacenar el último ID procesado
 
+
 def check_for_new_entries():
     """Consulta cada minuto Gravity Forms y, al detectar una nueva entrada, la procesa."""
     global last_entry_id
@@ -372,7 +374,7 @@ def check_for_new_entries():
 
                 # Invocar el endpoint POST /generar-menu con la data obtenida
                 try:
-                    url = f"http://127.0.0.1:{PORT}/generar-menu"
+                    url = f"{BASE_URL}/generar-menu"
                     response = requests.post(url, json=data)
                     if response.status_code in [200, 202]:
                         job_info = response.json()
