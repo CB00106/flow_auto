@@ -313,8 +313,10 @@ def procesar_menu(job_id, data):
 
         # Actualizar el registro en Supabase con el job_id (se usa el email como identificador único)
         update_response = supabase.table("clientes_form").update({"job_id": job_id}).eq("email", email).execute()
-        if update_response.error:
+        if hasattr (update_response, "error") and update_response.error:
             print("Error actualizando job_id en Supabase:", update_response.error)
+        else:
+            print("job_id actualizado en Supabase:", update_response.data)
     except Exception as e:
         jobs[job_id] = {"status": "failed", "error": str(e)}
 
@@ -390,4 +392,3 @@ if __name__ == '__main__':
     threading.Thread(target=check_for_new_entries, daemon=True).start()
     print(f"Servidor iniciado en el puerto {PORT} y monitoreando nuevas entradas en Gravity Forms...")
     app.run(host='0.0.0.0', port=PORT)
-
