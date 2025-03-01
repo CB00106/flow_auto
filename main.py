@@ -63,7 +63,7 @@ def get_latest_entry():
     if response.status_code == 200:
         data = response.json()
         entries = data.get("entries", [])
-        return entries[-1] if entries else None  # Retorna la última entrada
+        return entries[0] if entries else None  # Retorna la última entrada
     else:
         print(f"Error obteniendo respuestas: {response.status_code}")
         return None
@@ -338,11 +338,6 @@ def check_for_new_entries():
             if entry_id != last_entry_id:
                 last_entry_id = entry_id
                 print(f"Nueva entrada detectada: {entry_id}")
-                # Transformar datos del formulario para adecuarlos al registro de Supabase
-                # Se espera que la entrada incluya los siguientes campos:
-                # "Nombre Completo", "Email", "Sexo", "Edad", "Peso", "Altura",
-                # "Metas", "Selecciona tus preferencias", "Restrictions Alimenticias o Alérgicas",
-                # "restricciones_explicitas", "Nivel de Actividad Física Actual", "Comentarios"
                 data = entry
 
                 # Transformar "Nombre Completo"
