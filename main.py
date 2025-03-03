@@ -61,7 +61,7 @@ def get_latest_entry():
     if response.status_code == 200:
         data = response.json()
         entries = data.get("entries", [])
-        return entries[-1] if entries else None
+        return entries[0] if entries else None
     else:
         print(f"Error obteniendo respuestas: {response.status_code}")
         return None
