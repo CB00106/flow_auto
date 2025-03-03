@@ -144,10 +144,4 @@ def update():
         return jsonify({"error": "No se pudo obtener la entrada."}), 500
 
 if __name__ == '__main__':
-    # Si se detecta que se está en Render (por ejemplo, definidas las variables de entorno FLASK_APP o PORT), se inicie Flask.
-    if os.environ.get("FLASK_APP") or os.environ.get("PORT"):
-        port = int(os.environ.get("PORT", 5000))
-        app.run(host='0.0.0.0', port=port)
-    else:
-        # Ejecuta el ciclo principal de consulta
         main()
